@@ -21,9 +21,7 @@ where:
 
 In this implementation, we use the exponential function as the activation function.
 
-## Usage
-
-### Creating a Model
+## Creating a Model
 
 To create a model, use the `create` function. This function initializes the parameters of the model.
 
@@ -37,7 +35,7 @@ width = 2
 params = create(key, input_dim, width)
 ```
 
-### Applying the Model
+## Applying the Model
 
 To apply the model to an input, use the `apply` function. This function computes the output of the model given the input and the model parameters.
 
@@ -49,7 +47,7 @@ x = array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=float)
 output = apply(params, x)
 ```
 
-### Explanation of the `apply` Function
+## Explanation of the `apply` Function
 
 The `apply` function computes the output of the model using the following formula:
 
@@ -74,7 +72,7 @@ Here's a step-by-step explanation of the formula:
 
 5. **Output Calculation**: The resulting matrix (of shape `(n_samples, width)`) is then multiplied by the weight vector `c` using the `@` operator. This results in the final output vector of shape `(n_samples,)`.
 
-### Training the Model on XOR
+## Training the Model on XOR
 
 To train the model on the XOR problem, you can use the following code. This code uses stochastic gradient descent (SGD) to optimize the model parameters.
 
@@ -123,6 +121,10 @@ assert allclose(y, y_hat, atol=0.1)
 
 This code initializes the model parameters, defines the XOR input and output, sets up the optimizer, and trains the model for 100 iterations. Finally, it checks if the model's output is close to the expected XOR output.
 
-### Note on Optimizer Compatibility
+## Note on Optimizer Compatibility
 
 Since the `create` function outputs a pytree, you can use any JAX-based optimizer library like `optax` to optimize the model parameters. This allows for flexibility in choosing different optimization algorithms and techniques to train your model effectively.
+
+## Creating Complex Approximation Models
+
+By using this simple library, you can create complex approximation models. The flexibility of the Universal Approximation Theorem allows you to model a wide range of continuous functions, making it a powerful tool for various applications in machine learning and data science.
