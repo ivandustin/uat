@@ -10,14 +10,14 @@ The Universal Approximation Theorem states that a feedforward neural network wit
 
 The general formula for a neural network with one hidden layer can be expressed as:
 
-$f(x) = \sum_{i=1}^{N} c_i \sigma(a_i \cdot x + b_i)$
+$$f(x) = \sum_{i=1}^{N} c_i \sigma(a_i \cdot x + b_i)$$
 
 where:
-- $ x $ is the input vector.
-- $ N $ is the number of neurons in the hidden layer.
-- $ a_i $ and $ b_i $ are the weights and biases of the neurons in the hidden layer.
-- $ c_i $ are the weights of the output layer.
-- $ \sigma $ is the activation function (e.g., sigmoid, ReLU, exponential).
+- $x$ is the input vector.
+- $N$ is the number of neurons in the hidden layer.
+- $a_i$ and $b_i$ are the weights and biases of the neurons in the hidden layer.
+- $c_i$ are the weights of the output layer.
+- $\sigma$ is the activation function (e.g., sigmoid, ReLU, exponential).
 
 In this implementation, we use the exponential function as the activation function.
 
