@@ -17,9 +17,33 @@ where:
 - $N$ is the number of neurons in the hidden layer.
 - $a_i$ and $b_i$ are the weights and biases of the neurons in the hidden layer.
 - $c_i$ are the weights of the output layer.
-- $\sigma$ is the activation function (e.g., sigmoid, tanh, ReLU).
+- $\sigma$ is the activation function (e.g., sigmoid, tanh).
 
-In this implementation, we use the sigmoid function as the activation function.
+## Activation Function
+
+The Universal Approximation Theorem (UAT) hinges on the choice of activation function used in the neural network. Not all activation functions are suitable for ensuring that a neural network can approximate any continuous function on compact subsets of $\mathbb{R}^n$. Here are the key requirements and considerations for activation functions in the context of the UAT:
+
+### Requirements
+
+1. **Non-linearity**: The activation function must be non-linear. Linear activation functions (like the identity function) do not introduce the necessary complexity for the network to approximate non-linear functions.
+
+2. **Boundedness**: The activation function should be bounded. This means that the output of the activation function should lie within a fixed range. For example, the sigmoid function outputs values in the range (0, 1).
+
+3. **Continuity**: The activation function should be continuous. Discontinuous activation functions can lead to issues in training and may not satisfy the conditions of the UAT.
+
+4. **Non-constant**: The activation function should not be a constant function. A constant activation function would not allow the network to learn any meaningful patterns from the input data.
+
+### Common Activation Functions
+
+Here are some commonly used activation functions that satisfy the requirements of the UAT:
+
+- **Sigmoid**: $\sigma(x) = \frac{1}{1 + e^{-x}}$
+  - Bounded between 0 and 1.
+  - Non-linear and continuous.
+  
+- **Tanh**: $\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}$
+  - Bounded between -1 and 1.
+  - Non-linear and continuous.
 
 ## Creating a Model
 
@@ -79,7 +103,7 @@ To train the model on the XOR problem, you can use the following code. This code
 
 ```python
 from optax import sgd, apply_updates
-from jax.numpy import array, allclose
+from jax.numpy import array, allclose, abs, mean
 from jax.random import PRNGKey
 from jax import grad, jit
 from uat import create, apply
@@ -102,7 +126,7 @@ state = optimizer.init(params)
 # Define loss function
 def loss(params, x, y):
     y_hat = apply(params, x)
-    return sum((y - y_hat) ** 2)
+    return mean(abs(y - y_hat))
 
 # Define training step
 @jit
@@ -113,7 +137,7 @@ def fit(state, params, x, y):
     return state, params
 
 # Train the model
-for _ in range(100):
+for _ in range(1000):
     state, params = fit(state, params, x, y)
 
 # Check the output
@@ -121,7 +145,7 @@ y_hat = apply(params, x)
 assert allclose(y, y_hat, atol=0.1)
 ```
 
-This code initializes the model parameters, defines the XOR input and output, sets up the optimizer, and trains the model for 100 iterations. Finally, it checks if the model's output is close to the expected XOR output.
+This code initializes the model parameters, defines the XOR input and output, sets up the optimizer, and trains the model for 1000 iterations. Finally, it checks if the model's output is close to the expected XOR output.
 
 ## Note on Optimizer Compatibility
 
