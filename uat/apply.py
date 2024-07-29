@@ -1,6 +1,6 @@
-from jax.numpy import exp
+from jax.nn import sigmoid
 
 
 def apply(params, x):
     a, b, c = params
-    return exp((x @ a) + b) @ c
+    return sigmoid(x @ a + b) @ c

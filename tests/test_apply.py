@@ -1,6 +1,6 @@
 from uat import apply
 
 
-def test(params, x):
+def test(params, x, output_dim):
     output = apply(params, x)
-    assert output.shape == (4,)
+    assert output.shape == (4, output_dim)

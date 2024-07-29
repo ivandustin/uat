@@ -1,5 +1,5 @@
 from optax import sgd, apply_updates
-from jax.numpy import allclose
+from jax.numpy import abs, mean, allclose
 from jax import grad, jit
 from uat import apply
 
@@ -8,7 +8,7 @@ def test(params, x, y):
     optimizer = sgd(learning_rate=0.1, momentum=0.9)
     state = optimizer.init(params)
     fit = create(optimizer)
-    for _ in range(100):
+    for _ in range(1000):
         state, params = fit(state, params, x, y)
     y_hat = apply(params, x)
     assert allclose(y, y_hat, atol=0.1)
@@ -27,4 +27,4 @@ def create(optimizer):
 
 def loss(params, x, y):
     y_hat = apply(params, x)
-    return sum((y - y_hat) ** 2)
+    return mean(abs(y - y_hat))

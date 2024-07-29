@@ -17,9 +17,9 @@ where:
 - $N$ is the number of neurons in the hidden layer.
 - $a_i$ and $b_i$ are the weights and biases of the neurons in the hidden layer.
 - $c_i$ are the weights of the output layer.
-- $\sigma$ is the activation function (e.g., sigmoid, ReLU, exponential).
+- $\sigma$ is the activation function (e.g., sigmoid, tanh, ReLU).
 
-In this implementation, we use the exponential function as the activation function.
+In this implementation, we use the sigmoid function as the activation function.
 
 ## Creating a Model
 
@@ -30,9 +30,10 @@ from jax.random import PRNGKey
 from uat import create
 
 key = PRNGKey(0)
+neurons = 2
 input_dim = 2
-width = 2
-params = create(key, input_dim, width)
+output_dim = 1
+params = create(key, neurons, input_dim, output_dim)
 ```
 
 ## Applying the Model
@@ -54,23 +55,23 @@ The `apply` function computes the output of the model using the following formul
 ```python
 def apply(params, x):
     a, b, c = params
-    return exp((x @ a) + b) @ c
+    return sigmoid(x @ a + b) @ c
 ```
 
 Here's a step-by-step explanation of the formula:
 
 1. **Parameter Unpacking**: The parameters `params` are unpacked into three components: `a`, `b`, and `c`.
-   - `a` is a matrix of shape `(input_dim, width)`.
-   - `b` is a bias vector of shape `(1, width)`.
-   - `c` is a weight vector of shape `(width,)`.
+   - `a` is a matrix of shape `(input_dim, neurons)`.
+   - `b` is a bias vector of shape `(1, neurons)`.
+   - `c` is a weight matrix of shape `(neurons, output_dim)`.
 
-2. **Matrix Multiplication**: The input `x` (of shape `(n_samples, input_dim)`) is multiplied by the matrix `a` using the `@` operator. This results in a matrix of shape `(n_samples, width)`.
+2. **Matrix Multiplication**: The input `x` (of shape `(n_samples, input_dim)`) is multiplied by the matrix `a` using the `@` operator. This results in a matrix of shape `(n_samples, neurons)`.
 
-3. **Bias Addition**: The bias vector `b` is added to the result of the matrix multiplication. Broadcasting is used to add `b` to each row of the matrix, resulting in a matrix of shape `(n_samples, width)`.
+3. **Bias Addition**: The bias vector `b` is added to the result of the matrix multiplication. Broadcasting is used to add `b` to each row of the matrix, resulting in a matrix of shape `(n_samples, neurons)`.
 
-4. **Exponential Activation**: The exponential function `exp` is applied element-wise to the result of the bias addition. This introduces non-linearity into the model.
+4. **Sigmoid Activation**: The sigmoid function `sigmoid` is applied element-wise to the result of the bias addition. This introduces non-linearity into the model.
 
-5. **Output Calculation**: The resulting matrix (of shape `(n_samples, width)`) is then multiplied by the weight vector `c` using the `@` operator. This results in the final output vector of shape `(n_samples,)`.
+5. **Output Calculation**: The resulting matrix (of shape `(n_samples, neurons)`) is then multiplied by the weight matrix `c` using the `@` operator. This results in the final output matrix of shape `(n_samples, output_dim)`.
 
 ## Training the Model on XOR
 
@@ -85,13 +86,14 @@ from uat import create, apply
 
 # Initialize parameters
 key = PRNGKey(0)
+neurons = 2
 input_dim = 2
-width = 2
-params = create(key, input_dim, width)
+output_dim = 1
+params = create(key, neurons, input_dim, output_dim)
 
 # XOR input and output
 x = array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=float)
-y = array([0, 1, 1, 0], dtype=float)
+y = array([[0], [1], [1], [0]], dtype=float)
 
 # Define optimizer
 optimizer = sgd(learning_rate=0.1, momentum=0.9)

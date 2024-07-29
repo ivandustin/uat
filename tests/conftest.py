@@ -10,18 +10,23 @@ def key():
 
 
 @fixture
+def neurons():
+    return 2
+
+
+@fixture
 def input_dim():
     return 2
 
 
 @fixture
-def width():
-    return 2
+def output_dim():
+    return 1
 
 
 @fixture
-def params(key, input_dim, width):
-    return create(key, input_dim, width)
+def params(key, neurons, input_dim, output_dim):
+    return create(key, neurons, input_dim, output_dim)
 
 
 @fixture
@@ -31,4 +36,4 @@ def x():
 
 @fixture
 def y():
-    return array([0, 1, 1, 0], dtype=float)
+    return array([[0], [1], [1], [0]], dtype=float)
