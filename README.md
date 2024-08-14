@@ -2,6 +2,10 @@
 
 Universal Approximation Theorem in JAX
 
+```
+pip install uat
+```
+
 ## Universal Approximation Theorem
 
 The Universal Approximation Theorem states that a feedforward neural network with a single hidden layer containing a finite number of neurons can approximate any continuous function on compact subsets of $\mathbb{R}^n$, given appropriate activation functions.
