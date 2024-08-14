@@ -54,10 +54,11 @@ from jax.random import PRNGKey
 from uat import create
 
 key = PRNGKey(0)
-neurons = 2
 input_dim = 2
+neurons = 2
 output_dim = 1
-params = create(key, neurons, input_dim, output_dim)
+dimensions = (input_dim, neurons, output_dim)
+params = create(key, dimensions)
 ```
 
 ## Applying the Model
@@ -110,10 +111,11 @@ from uat import create, apply
 
 # Initialize parameters
 key = PRNGKey(0)
-neurons = 2
 input_dim = 2
+neurons = 2
 output_dim = 1
-params = create(key, neurons, input_dim, output_dim)
+dimensions = (input_dim, neurons, output_dim)
+params = create(key, dimensions)
 
 # XOR input and output
 x = array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=float)
