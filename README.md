@@ -59,9 +59,9 @@ from uat import create
 
 key = PRNGKey(0)
 input_dim = 2
-neurons = 2
 output_dim = 1
-dims = (input_dim, neurons, output_dim)
+neurons = 2
+dims = (input_dim, output_dim, neurons)
 params = create(key, dims)
 ```
 
@@ -116,9 +116,9 @@ from uat import create, apply
 # Initialize parameters
 key = PRNGKey(0)
 input_dim = 2
-neurons = 2
 output_dim = 1
-dims = (input_dim, neurons, output_dim)
+neurons = 2
+dims = (input_dim, output_dim, neurons)
 params = create(key, dims)
 
 # XOR input and output

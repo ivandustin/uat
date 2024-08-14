@@ -10,11 +10,6 @@ def key():
 
 
 @fixture
-def neurons():
-    return 2
-
-
-@fixture
 def input_dim():
     return 2
 
@@ -25,8 +20,13 @@ def output_dim():
 
 
 @fixture
-def dims(input_dim, neurons, output_dim):
-    return (input_dim, neurons, output_dim)
+def neurons():
+    return 2
+
+
+@fixture
+def dims(input_dim, output_dim, neurons):
+    return (input_dim, output_dim, neurons)
 
 
 @fixture
