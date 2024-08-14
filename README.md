@@ -61,8 +61,8 @@ key = PRNGKey(0)
 input_dim = 2
 neurons = 2
 output_dim = 1
-dimensions = (input_dim, neurons, output_dim)
-params = create(key, dimensions)
+dims = (input_dim, neurons, output_dim)
+params = create(key, dims)
 ```
 
 ## Applying the Model
@@ -118,8 +118,8 @@ key = PRNGKey(0)
 input_dim = 2
 neurons = 2
 output_dim = 1
-dimensions = (input_dim, neurons, output_dim)
-params = create(key, dimensions)
+dims = (input_dim, neurons, output_dim)
+params = create(key, dims)
 
 # XOR input and output
 x = array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=float)

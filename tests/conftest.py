@@ -25,13 +25,13 @@ def output_dim():
 
 
 @fixture
-def dimensions(input_dim, neurons, output_dim):
+def dims(input_dim, neurons, output_dim):
     return (input_dim, neurons, output_dim)
 
 
 @fixture
-def params(key, dimensions):
-    return create(key, dimensions)
+def params(key, dims):
+    return create(key, dims)
 
 
 @fixture
